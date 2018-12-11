@@ -24,13 +24,8 @@ public class GeneralController {
 		//ordermapper
 		model.addAttribute("result", ordermapper.getOrder());
 		
-		
 	}
 	
-	@GetMapping("/sales")
-	public void sales() {
-		log.info("sales......................page");
-	}
 	
 	@GetMapping("/menu")
 	public void menu() {

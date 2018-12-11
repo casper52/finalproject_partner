@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.gorany.mapper.SalesMapper">
+	<select id="getDailySales" resultType="org.gorany.domain.mapper.SalesVO">
+		
+		select DATE(approved_at) orderdate, 
+	    sum(mprice*quantity) total
+		from gorany.order left join
+		(select tid, sno, mprice, quantity
+		from gorany.order_info info join gorany.partner_store_menu menu
+		on info.mno = menu.mno) allorder
+		on gorany.order.tid = allorder.tid
+		where allorder.sno = 1
+		and MONTH(`approved_at`) = 11
+		group by orderdate
+		order by orderdate;
+	
+	</select>
+</mapper>
+
